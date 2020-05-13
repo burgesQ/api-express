@@ -1,30 +1,5 @@
 /**
  * @swagger
- * definitions:
- *   NewCredential:
- *     type: object
- *     required:
- *       - username
- *       - password
- *     properties:
- *       username:
- *         type: string
- *       password:
- *         type: string
- *         format: password
- *   Credential:
- *     allOf:
- *       - $ref: '#/definitions/NewCredential'
- *       - required:
- *         - id
- *       - properties:
- *         id:
- *           type: integer
- *           format: int64
-  */
-
-/**
- * @swagger
  *
  * /api/credential:
  *   get:
@@ -32,6 +7,11 @@
  *     produces:
  *       - application/json
  *     parameters:
+ *       - name: pretty
+ *         description: Return a pretty json
+ *         in: query
+ *         required: false
+ *         type: bool
  *       - name: token
  *         description: Base64 encoded hash token
  *         in: query

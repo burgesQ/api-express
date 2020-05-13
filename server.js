@@ -6,9 +6,12 @@ const logger = require('morgan');
 const credential = require('./routes/credential');
 // expose swagger API doc
 const swaggerUi = require('swagger-ui-express');
-
 // generate swagger API doc
 const swaggerJSDoc = require('swagger-jsdoc');
+
+const pretty = require('express-prettify');
+
+// swagger doc
 const options = {
   definition: {
     openapi: '3.0.0', // Specification (optional, defaults to swagger: '2.0')
@@ -18,10 +21,15 @@ const options = {
     },
   },
   // Path to the API docs
-  apis: ['./routes/credential.js'],
+  basePath: '/api',
+  apis: [
+    './routes/credential.js',
+    './models/credential.js',
+  ],
 };
 const swaggerSpec = swaggerJSDoc(options);
 
+// server data
 const port = process.env.PORT || 4242;
 const app = express();
 
@@ -31,18 +39,19 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: false,
 }));
+// expose pretty query param
+app.use(pretty({ query: 'pretty' }));
 
-// load credentials endpoint
+// load credential endpoints
 app.route('/api/credential').get(credential.getCredential);
 
-// expose the api doc json
+// expose json swagger API doc
 app.get('/api/api-docs.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
+// expose html swagger API doc
 app.use('/api/doc', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-// expose API doc html
 
 // hanlde 404 as json
 app.use((req, res, next) => {
@@ -53,7 +62,12 @@ app.use((req, res, next) => {
 // return internal instead of stack trace
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ error: 'Internal server error' });
+
+  if (app.get('env') == "production") {
+    res.status(500).json({ error: 'Internal server error' });
+  } else {
+    res.status(500).json({ error: 'Internal server error', trace: err.stack });
+  }
 });
 
 // start server

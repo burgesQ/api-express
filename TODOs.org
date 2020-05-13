@@ -3,7 +3,7 @@
 #+DESCRIPTION: Quick summary of dev task for turn-express
 #+TODO: IDEA TODO WIP REVIEW | UNASIGNED CANCELED DONE
 
-* v1 [0/6] [0%]
+* v1 [1/6] [16%]
 DEADLINE: <2020-05-15 Fri>
 
 ** TODO [#B] prod mode
@@ -14,21 +14,26 @@ DEADLINE: <2020-05-15 Fri>
  - generate auth (simple user:digesst)
  - return them
 
-** IDEA [#C] swagger doc
-https://blog.cloudboost.io/adding-swagger-to-existing-node-js-project-92a6624b855b
-- swagger hanlder
-- swagger anotation
-- swagger generator
-** WIP [#B] testing
-https://medium.com/@asciidev/testing-a-node-express-application-with-mocha-chai-9592d41c0083
-- [X] mocha
-- [X] chai
-  Deployed, may need some update post dev
-
 ** TODO [#B] redis access
 - save auth in redis
 - expressredis
-** TODO [#A] doc [0%]
+** WIP [#B] testing [2/3]
+https://medium.com/@asciidev/testing-a-node-express-application-with-mocha-chai-9592d41c0083
+- [X] mocha
+- [X] chai
+- [ ] [GET] /credential [0%]
+  - [ ] all ok
+  - [ ] cannot contact redis
+  Deployed, may need some update post dev
+
+** WIP [#A] doc [25%]
  - [ ] complet readme
- - [ ] fully featured makefile
+ - [X] fully featured makefile
  - [ ] postman collection
+ - [ ] proper swagger doc
+** DONE [#C] swagger doc
+   CLOSED: [2020-05-13 Wed 17:50]
+https://blog.cloudboost.io/adding-swagger-to-existing-node-js-project-92a6624b855b
+- [X] swagger hanlder
+- [X] swagger anotation
+- [X] swagger generator
