@@ -1,0 +1,32 @@
+#+TITLE: turn-express's todos
+#+AUTHOR: Quentin Burgess (quentin.burgess@frafos.com)
+#+DESCRIPTION: Quick summary of dev task for turn-express
+#+TODO: IDEA TODO WIP REVIEW | UNASIGNED CANCELED DONE
+
+* v1 [0/6] [0%]
+DEADLINE: <2020-05-15 Fri>
+
+** TODO [#B] prod mode
+ - make prod
+ - docker prod (unsing node:10-alpine?)
+
+** TODO [#A] TURN auth
+ - generate auth (simple user:digesst)
+ - return them
+
+** IDEA [#C] swagger doc
+https://blog.cloudboost.io/adding-swagger-to-existing-node-js-project-92a6624b855b
+- swagger hanlder
+- swagger anotation
+- swagger generator
+** TODO [#B] testing
+https://medium.com/@asciidev/testing-a-node-express-application-with-mocha-chai-9592d41c0083
+- mocha
+- chai
+** TODO [#B] redis access
+- save auth in redis
+- expressredis
+** TODO [#A] doc [0%]
+ - [ ] complet readme
+ - [ ] fully featured makefile
+ - [ ] postman collection
