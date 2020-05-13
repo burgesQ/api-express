@@ -1,7 +1,7 @@
 /**
  * @swagger
  * definitions:
- *   NewCredential:
+ *   Credential:
  *     type: object
  *     required:
  *       - username
@@ -12,13 +12,4 @@
  *       password:
  *         type: string
  *         format: password
- *   Credential:
- *     allOf:
- *       - $ref: '#/definitions/NewCredential'
- *       - required:
- *         - id
- *       - properties:
- *         id:
- *           type: integer
- *           format: int64
  */

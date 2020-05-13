@@ -1,0 +1,29 @@
+version: "3.4"
+
+services:
+
+  api:
+    build:
+       context: .
+       #   target: prod
+    # image: docker.frafos.net/license-api:latest
+    container_name: turn-express
+    environment:
+      PORT: 4242
+      REDIS_ADDR: redis
+      REDIS_PORT: 6379
+    volumes:
+      - .:/usr/src/app
+    user: 1000:1000
+    # netwrok: host
+    ports:
+      - 4242:4242
+
+  redis:
+    # build:
+    #   context: front
+    #   target: prod
+    image: redis
+    # netwrok: host
+    ports:
+      - 6379:6379

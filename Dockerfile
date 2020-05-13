@@ -15,8 +15,9 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 4242
-# enable express debug for the app
+ENV NODE_ENV=development
 ENV DEBUG=turn-express
+
+EXPOSE $PORT
 
 CMD [ "nodemon" ]

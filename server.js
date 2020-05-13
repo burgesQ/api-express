@@ -3,35 +3,35 @@ const express = require('express');
 // const cookieParser = require('cookie-parser'); -> cookie store
 // const bodyParser = require('body-parser');     -> input payloads
 const logger = require('morgan');
-const credential = require('./routes/credential');
 // expose swagger API doc
 const swaggerUi = require('swagger-ui-express');
 // generate swagger API doc
 const swaggerJSDoc = require('swagger-jsdoc');
-
+// handle pretty query param
 const pretty = require('express-prettify');
+const Session = require('express-session');
 
-// swagger doc
-const options = {
-  definition: {
-    openapi: '3.0.0', // Specification (optional, defaults to swagger: '2.0')
-    info: {
-      title: 'TURN express', // Title (required)
-      version: '1.0.0', // Version (required)
-    },
-  },
-  // Path to the API docs
-  basePath: '/api',
-  apis: [
-    './routes/credential.js',
-    './models/credential.js',
-  ],
-};
-const swaggerSpec = swaggerJSDoc(options);
+const redis = require('./redis');
+// credential routes
+const credential = require('./routes/credential');
+// swagger spec
+const swaggerSpec = require('./swagger');
 
 // server data
-const port = process.env.PORT || 4242;
+const { port } = require('./config');
+
 const app = express();
+
+// Initialize redis session
+const session = Session({
+  resave: true,
+  saveUninitialized: true,
+  key: 'SID',
+  cookie: { secure: false }, // Note that the cookie-parser module is no longer needed
+  secret: 'Luke Skywalker',
+  store: redis.initializeRedis(Session),
+});
+
 
 // express conf
 app.use(logger('dev'));
@@ -39,6 +39,8 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: false,
 }));
+// redis session
+app.use(session);
 // expose pretty query param
 app.use(pretty({ query: 'pretty' }));
 
@@ -46,12 +48,11 @@ app.use(pretty({ query: 'pretty' }));
 app.route('/api/credential').get(credential.getCredential);
 
 // expose json swagger API doc
-app.get('/api/api-docs.json', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(swaggerSpec);
+app.get('/api/docs.json', (req, res) => {
+  res.json(swaggerSpec);
 });
 // expose html swagger API doc
-app.use('/api/doc', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // hanlde 404 as json
 app.use((req, res, next) => {
@@ -59,7 +60,7 @@ app.use((req, res, next) => {
   res.json({ error: 'Not found' });
 });
 
-// return internal instead of stack trace
+// return internal as json
 app.use((err, req, res, next) => {
   console.error(err.stack);
 
@@ -72,8 +73,7 @@ app.use((err, req, res, next) => {
 
 // start server
 app.listen(port, () => {
-  /* eslint no-console: 0 */
-  console.log(`Running on :${port}`);
+  console.log(`listening on:\t${port}`);
 });
 
 module.exports = app;

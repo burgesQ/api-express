@@ -26,13 +26,7 @@
  *       200:
  *         description: TURN credential generated
  *         schema:
- *           type: object
- *           items:
- *             $ref: '#/definitions/Credential'
- *       400:
- *         cannot contact redis
- *       402:
- *         cannot generate credentail (TODO: define reasons)
+ *           $ref: '#/definitions/Credential'
  */
 function getCredential(req, res, next) {
   // gen cred

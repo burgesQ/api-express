@@ -22,7 +22,7 @@ run:
 			-it \
 			--user "$(id -u):$(id -g)" \
 			-v `pwd`:/usr/src/app \
-			-p 4242:4242 \
+			--network host \
 			--name $(NAME) \
 			$(NAME) $(CMD)
 	@echo " -- Running $(NAME) docker image: done"
@@ -57,6 +57,16 @@ lint:
 .PHONY: all
 ## all: Build then run the dockerized nodejs
 all: build run
+
+.PHONY: redis
+## redis: Start the redis container
+redis:
+	docker run --rm --name $(NAME)-redis --network host redis
+
+.PHONY: stop-redis
+## stop-redis: Stop the redis container
+stop-redis:
+	$(MAKE) stop -e NAME="$(NAME)-redis"
 
 .PHONY: help
 ## help: Prints this help message
