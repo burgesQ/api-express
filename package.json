@@ -9,8 +9,10 @@
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "express": "~4.16.1",
     "morgan": "~1.9.1",
-    "express": "~4.16.1"
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -22,7 +24,7 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "mocha": "^2.4.5",
-    "prettier": "^2.0.5",
+    "prettier": "^2.0.5"
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint --fix --ignore-path .gitignore .",

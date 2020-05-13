@@ -19,10 +19,12 @@ https://blog.cloudboost.io/adding-swagger-to-existing-node-js-project-92a6624b85
 - swagger hanlder
 - swagger anotation
 - swagger generator
-** TODO [#B] testing
+** WIP [#B] testing
 https://medium.com/@asciidev/testing-a-node-express-application-with-mocha-chai-9592d41c0083
-- mocha
-- chai
+- [X] mocha
+- [X] chai
+  Deployed, may need some update post dev
+
 ** TODO [#B] redis access
 - save auth in redis
 - expressredis

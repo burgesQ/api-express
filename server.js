@@ -4,6 +4,23 @@ const express = require('express');
 // const bodyParser = require('body-parser');     -> input payloads
 const logger = require('morgan');
 const credential = require('./routes/credential');
+// expose swagger API doc
+const swaggerUi = require('swagger-ui-express');
+
+// generate swagger API doc
+const swaggerJSDoc = require('swagger-jsdoc');
+const options = {
+  definition: {
+    openapi: '3.0.0', // Specification (optional, defaults to swagger: '2.0')
+    info: {
+      title: 'TURN express', // Title (required)
+      version: '1.0.0', // Version (required)
+    },
+  },
+  // Path to the API docs
+  apis: ['./routes/credential.js'],
+};
+const swaggerSpec = swaggerJSDoc(options);
 
 const port = process.env.PORT || 4242;
 const app = express();
@@ -15,11 +32,17 @@ app.use(express.urlencoded({
   extended: false,
 }));
 
-// TODO: use cookieParser to save cred for connection
-// app.use(cookieParser());
-
 // load credentials endpoint
-app.route('/credential').get(credential.getCredential);
+app.route('/api/credential').get(credential.getCredential);
+
+// expose the api doc json
+app.get('/api/api-docs.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
+app.use('/api/doc', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// expose API doc html
 
 // hanlde 404 as json
 app.use((req, res, next) => {
