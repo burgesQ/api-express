@@ -6,17 +6,18 @@
 * v1 [1/6] [16%]
 DEADLINE: <2020-05-15 Fri>
 
-** TODO [#B] prod mode
- - make prod
- - docker prod (unsing node:10-alpine?)
-
+** TODO [#B] prod mode [0%]
+ - [ ] make prod
+ - [ ] docker prod (unsing node:10-alpine?)
+ - [ ] read from env file
 ** TODO [#A] TURN auth
  - generate auth (simple user:digesst)
+ - persist them
  - return them
 
-** TODO [#B] redis access
-- save auth in redis
-- expressredis
+** WIP [#B] redis access [50%]
+ - [X] connect to redis
+ - [ ] persiten connection ?
 ** WIP [#B] testing [2/3]
 https://medium.com/@asciidev/testing-a-node-express-application-with-mocha-chai-9592d41c0083
 - [X] mocha
@@ -25,7 +26,7 @@ https://medium.com/@asciidev/testing-a-node-express-application-with-mocha-chai-
   - [ ] all ok
   - [ ] cannot contact redis
   Deployed, may need some update post dev
-
+- [ ] moke redis communication ?
 ** WIP [#A] doc [25%]
  - [ ] complet readme
  - [X] fully featured makefile
