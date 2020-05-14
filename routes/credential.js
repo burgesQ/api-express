@@ -2,6 +2,13 @@
 
 /**
  * @swagger
+ * tags:
+ *   name: Credentials
+ *   description: Credentials management
+ */
+
+/**
+ * @swagger
  * components:
  *   schemas:
  *     Credential:
@@ -34,6 +41,7 @@
  * /api/v1/credential:
  *   get:
  *     description: Request TURN credentials
+ *     tags: [Credentials]
  *     produces:
  *       - application/json
  *     parameters:

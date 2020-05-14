@@ -1,0 +1,99 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "TURN express",
+    "description": "API server generating and storing TURN credentials",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Quentin Burgess",
+      "email": "quentin.burgess@frafos.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4242/api/v1"
+    }
+  ],
+  "paths": {
+    "/api/v1/credential": {
+      "get": {
+        "description": "Request TURN credentials",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pretty",
+            "description": "Return a pretty json",
+            "in": "query",
+            "required": false,
+            "type": "bool"
+          },
+          {
+            "name": "token",
+            "description": "Base64 encoded hash token",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "confname",
+            "description": "Conference name",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "TURN credential generated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Credential"
+                },
+                "example": {
+                  "id": "new_user",
+                  "value": "new_credential"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Credential": {
+      "schema": {
+        "$ref": "#/components/schemas/Credential"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Credential": {
+        "type": "object",
+        "required": [
+          "id",
+          "value"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID linked to the TURN the credential"
+          },
+          "value": {
+            "type": "string",
+            "description": "TURN credential"
+          }
+        },
+        "example": {
+          "id": 1234,
+          "value": "tutu"
+        }
+      }
+    }
+  },
+  "tags": []
+}

@@ -9,8 +9,17 @@ const routes = require('./routes');
 const { port, nodeEnv } = require('./config');
 
 const app = express();
+//const session = Session({
+//   resave: true,
+//   saveUninitialized: true,
+//   key: 'SID',
+//   cookie: { secure: false }, // Note that the cookie-parser module is no longer needed
+//   secret: 'Luke Skywalker',
+//   store: redis.initializeRedis(Session),
+// });
 
 // express conf
+//app.use(session);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -30,17 +39,22 @@ app.use((req, res, next) => {
 
 // handle error
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  if (nodeEnv === 'production') {
+  const val = err.status || 500
+
+  res.status(val);
+
+  if (val !== 404) {
+    console.error(err.stack);
+  }
+
+  if (nodeEnv === 'development') {
     res.json({
-      error: {
-        message: err.message,
-      },
+      error: err.message,
+      trace: err.stack,
     });
   } else {
     res.json({
       error: err.message,
-      trace: err.stack,
     });
   }
 });

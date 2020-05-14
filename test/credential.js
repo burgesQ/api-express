@@ -11,14 +11,14 @@ const server = require('../server');
 const should = chai.should();
 
 chai.use(chaiHttp);
-describe('Books', () => {
+describe('Credential', () => {
   /*
    * Test the /GET route
    */
   describe('/GET credential', () => {
     it('should generate and return new credential', (done) => {
       chai.request(server)
-        .get('/credential')
+        .get('/api/v1/credential')
         .end((err, res) => {
           should.exist(res.body);
           res.should.have.status(200);
@@ -31,5 +31,22 @@ describe('Books', () => {
         });
     });
   });
+});
 
+describe('Global', () => {
+  describe('Errors', () => {
+    it('404 should be json', (done) => {
+      chai.request(server)
+        .get('/api')
+        .end((err, res) => {
+          should.exist(res.body);
+          res.should.have.status(404);
+          res.body.should.be.a('object');
+          res.body.should.be.eql({
+            error: 'Not Found',
+          });
+          done();
+        });
+    });
+  });
 });
