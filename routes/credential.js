@@ -1,5 +1,7 @@
 // credential.js hold the credential endpoint
 
+const redis = require('../redis-client');
+
 /**
  * @swagger
  * tags:
@@ -72,13 +74,25 @@
  *               value: new_credential
  */
 function getCredential(req, res, next) {
-  // gen cred
-  // save them in redis
-  res.json({
-    credential: 'smth',
-    user: 'turlu',
+    // gen cred
+    // save them in redis
+    // fetch data from url query
+
+  redis.client().get('key', (err, result) => {
+    if (err) {
+      console.error(`redis error:\t${err}`);
+      return next(err);
+    } else {
+      console.log("ret val is " + result);
+      redis.client().set('key', `${result}+`);
+      res.json({
+        credential: result,
+        user: 'turlu',
+      });
+    }
   });
 }
 
-
-module.exports = getCredential;
+module.exports = {
+  get: getCredential
+}

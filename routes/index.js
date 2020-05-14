@@ -2,20 +2,18 @@
 
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
-const getCredential = require('./credential');
+const credential = require('./credential');
 const specs = require('./swagger');
 
-const router = express.Router();
+function init(router = express.Router()) {
+  router.get('/credential', credential.get);
+  router.use('/docs', swaggerUi.serve);
+  router.get('/docs.json', (req, res) => {
+    res.json(specs);
+  });
+  router.get('/docs', swaggerUi.setup(specs, { explorer: true }));
 
-router.get('/credential', getCredential);
+  return router;
+}
 
-router.use('/docs', swaggerUi.serve);
-router.get('/docs.json', (req, res) => {
-  res.json(specs);
-});
-router.get('/docs',
-           swaggerUi.setup(specs, {
-             explorer: true,
-           }));
-
-module.exports = { router };
+module.exports = init;

@@ -3,9 +3,8 @@ const logger = require('morgan');
 const pretty = require('express-prettify');
 const routes = require('./routes');
 const middlewares = require('./routes/middlewares');
-
-// server data
-const { port, nodeEnv } = require('./config');
+//const redisClient = require('./redis-client');
+const { port } = require('./config');
 
 const app = express();
 
@@ -14,13 +13,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(pretty({ query: 'pretty' }));
-app.use('/api/v1', routes.router);
-
-// hanlde 404 as json
+app.use('/api/v1', routes());
 app.use(middlewares.notFound());
 app.use(middlewares.handleError());
 
 // start server
-app.listen(port, () => { console.log(`listening on:\t${port}`); });
+app.listen(port, () => {
+  // eslint-disable-next-line no-console
+  console.log(`listening on:\t${port}`);
+});
 
 module.exports = app;

@@ -1,3 +1,5 @@
+// middlewares.js hold some useful middlware to force json error
+
 const nodeEnv = require('../config');
 
 function notFound(req, res, next) {
@@ -11,6 +13,7 @@ function handleError(err, req, res, next) {
   let ret = { error: err.message };
 
   if (val !== 404) {
+    // eslint-disable-next-line no-console
     console.error(err.stack);
   }
 
