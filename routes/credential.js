@@ -1,7 +1,37 @@
+// credential.js hold the credential endpoint
+
 /**
  * @swagger
- *
- * /api/credential:
+ * components:
+ *   schemas:
+ *     Credential:
+ *       type: object
+ *       required:
+ *         - id
+ *         - value
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: ID linked to the TURN the credential
+ *         value:
+ *           type: string
+ *           description: TURN credential
+ *       example:
+ *         id: 1234
+ *         value: tutu
+ */
+
+/**
+ * @swagger
+ * definitions:
+ *   Credential:
+ *     schema:
+ *       $ref: '#/components/schemas/Credential'
+ */
+
+/**
+ * @swagger
+ * /api/v1/credential:
  *   get:
  *     description: Request TURN credentials
  *     produces:
@@ -25,8 +55,13 @@
  *     responses:
  *       200:
  *         description: TURN credential generated
- *         schema:
- *           $ref: '#/definitions/Credential'
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/definitions/Credential'
+ *             example:
+ *               id: new_user
+ *               value: new_credential
  */
 function getCredential(req, res, next) {
   // gen cred
@@ -37,4 +72,5 @@ function getCredential(req, res, next) {
   });
 }
 
-module.exports = { getCredential };
+
+module.exports = getCredential;
