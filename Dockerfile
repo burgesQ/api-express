@@ -15,8 +15,10 @@ RUN npm install
 
 COPY . .
 
+ENV PORT=4242
+ENV REDIS_ADDR=
 ENV NODE_ENV=development
-ENV DEBUG=turn-express
+ENV DEBUG=turn-express,redis,express
 
 EXPOSE $PORT
 

@@ -3,7 +3,7 @@
 #+DESCRIPTION: Quick summary of dev task for turn-express
 #+TODO: IDEA TODO WIP REVIEW | UNASIGNED CANCELED DONE
 
-* v1 [1/6] [16%]
+* v1 [1/8] [12%]
 DEADLINE: <2020-05-15 Fri>
 
 ** TODO [#B] prod mode [0%]
@@ -15,26 +15,34 @@ DEADLINE: <2020-05-15 Fri>
  - persist them
  - return them
 
-** WIP [#B] redis access [50%]
- - [X] connect to redis
- - [ ] persiten connection ?
-** WIP [#B] testing [2/3]
+** WIP [#B] redis access [0%]
+   - https://github.com/NodeRedis/node-redis
+   - https://www.npmjs.com/package/redis-mock
+ - [ ] connect to redis
+ - [ ] resilent connection
+ - [ ] async request
+** WIP [#B] testing [3/5]
 https://medium.com/@asciidev/testing-a-node-express-application-with-mocha-chai-9592d41c0083
 - [X] mocha
 - [X] chai
-- [ ] [GET] /credential [0%]
-  - [ ] all ok
+- [X] Global [100%]
+  - [X] 404 is json
+- [-] [GET] /credential [50%]
+  - [X] all ok
   - [ ] cannot contact redis
-  Deployed, may need some update post dev
-- [ ] moke redis communication ?
-** WIP [#A] doc [25%]
+- [ ] mocking redis
+** WIP [#A] doc [50%]
  - [ ] complet readme
  - [X] fully featured makefile
  - [ ] postman collection
- - [ ] proper swagger doc
+ - [X] proper swagger doc
 ** DONE [#C] swagger doc
    CLOSED: [2020-05-13 Wed 17:50]
 https://blog.cloudboost.io/adding-swagger-to-existing-node-js-project-92a6624b855b
 - [X] swagger hanlder
 - [X] swagger anotation
 - [X] swagger generator
+** IDEA redis caching?
+   https://github.com/srinivasKandukuri/redisCache_nodejs_express_API
+** IDEA redis session ?
+   How to implement Redis with Node.js and Express for beginners
