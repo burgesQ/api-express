@@ -5,7 +5,10 @@ const swaggerUi = require('swagger-ui-express');
 const specs = require('./swagger');
 const { credential } = require('../controller/credential');
 
-function init(router = express.Router()) {
+module.exports = (redis) => {
+  credential.use(redis);
+
+  const router = express.Router();
   router.get('/credential', credential.get);
   router.use('/docs', swaggerUi.serve);
   router.get('/docs.json', (req, res) => {
@@ -14,6 +17,4 @@ function init(router = express.Router()) {
   router.get('/docs', swaggerUi.setup(specs, { explorer: true }));
 
   return router;
-}
-
-module.exports = init;
+};

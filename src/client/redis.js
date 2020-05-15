@@ -29,8 +29,8 @@ client.set('key', 'value', (err, result) => {
 //   console.log(result); // Prints "bar"
 // });
 
-module.exports.redis = client;
-//   ...client,
-//   get: client.get.bind(client),
-//   set: client.set.bind(client),
-// };
+module.exports.redis = {
+  ...client,
+  get: client.get.bind(client),
+  set: client.set.bind(client),
+};
