@@ -35,7 +35,7 @@
     "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
     "pretty": "./node_modules/.bin/prettier --single-quote --trailing-comma es5 --print-width 80 --write --no-bracket-spacing server.js",
     "start": "node src/app.js",
-    "test": "./node_modules/.bin/mocha --timeout 10000",
-    "swagger": "./node_modules/.bin/swagger-jsdoc -d routes/swagger.js routes/*.js"
+    "test": "./node_modules/.bin/mocha --timeout 10000 src/test",
+    "swagger": "./node_modules/.bin/swagger-jsdoc -d src/routes/swagger.js src/**/*.js"
   }
 }

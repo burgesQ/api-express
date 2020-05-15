@@ -19,7 +19,7 @@ describe('Credential', () => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.be.eql({
-            credential: 'smth',
+            credential: 'value',
             user: 'turlu',
           });
           done();

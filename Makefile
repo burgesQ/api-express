@@ -44,7 +44,7 @@ run:
 ## test: Run the mocha unit test
 test:
 	@echo " -- Testing $(NAME) ..."
-	@ $(MAKE) run --rm $(VOLUMES) -e CMD="npm run test"
+	@ $(MAKE) run -e CMD="npm run test"
 	@echo " -- Testing $(NAME): done"
 
 .PHONY: exec
