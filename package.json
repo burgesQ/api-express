@@ -5,7 +5,7 @@
   "author": "Quentin Burgess <quentin.burgess@frafos.com>",
   "repository": "https://gitlab.frafos.net/sbc/turn-express",
   "license": "WTFPL",
-  "main": "app.js",
+  "main": "./src/app.js",
   "dependencies": {
     "connect-redis": "^4.0.4",
     "cookie-parser": "~1.4.4",
@@ -34,7 +34,7 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
     "pretty": "./node_modules/.bin/prettier --single-quote --trailing-comma es5 --print-width 80 --write --no-bracket-spacing server.js",
-    "start": "node server.js",
+    "start": "node src/app.js",
     "test": "./node_modules/.bin/mocha --timeout 10000",
     "swagger": "./node_modules/.bin/swagger-jsdoc -d routes/swagger.js routes/*.js"
   }

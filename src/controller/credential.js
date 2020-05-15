@@ -81,7 +81,7 @@ controller.get = async (req, res, next) => {
 
   try {
     const data = await redis.get('key');
-    await redis.set('key', `${data}+`);
+    await redis.set('key', `${data}+1`);
 
     return res.json({
       credential: data,

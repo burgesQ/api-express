@@ -1,5 +1,14 @@
 NAME	= turn-express
 
+# docker build target
+BUILD_TARGET	=	dev
+# docker runtime shared volumes
+VOLUMES = -v `pwd`/src:/usr/src/app/src \
+      -v `pwd`/package.json:/usr/src/app/package.json \
+			-v `pwd`/package-lock.json:/usr/src/app/package-lock.json
+# docker run/exec command
+CMD	=
+
 .PHONY: $(NAME)
 ## turn_express: Default target, run build
 $(NAME): build
@@ -7,22 +16,26 @@ $(NAME): build
 .PHONY: build
 ## build: Build the nodejs docker image (default target)
 build:
-	@echo " -- Building $(NAME) docker image ..."
-	@docker build -t $(NAME) .
+	@echo " -- Building $(NAME) docker image (target: $(BUILD_TARGET)) ..."
+	@docker build -t $(NAME) --target=$(BUILD_TARGET) .
 	@echo " -- Building $(NAME) docker image: done"
 
-CMD	=
+.PHONY: build-prod
+## build-prod: Build a production readu nodejs docker image
+build-prod:
+	@echo " -- Building $(NAME) prod docker image ..."
+	@ $(MAKE) build -e BUILD_TARGET=prod
+	@echo " -- Building $(NAME) prod docker image: done"
 
 .PHONY: run
 ## run: Run the nodejs server from the docker image
 run:
 	@echo " -- Running $(NAME) docker image ..."
-	@docker run \
-			--rm \
-			-it \
+	@docker run	--rm -it \
 			--user "$(id -u):$(id -g)" \
-			-v `pwd`:/usr/src/app \
-			--network host \
+      $(VOLUMES) \
+			--env-file .dockerenv \
+      -p 4242:4242 \
 			--name $(NAME) \
 			$(NAME) $(CMD)
 	@echo " -- Running $(NAME) docker image: done"
@@ -31,7 +44,7 @@ run:
 ## test: Run the mocha unit test
 test:
 	@echo " -- Testing $(NAME) ..."
-	@ $(MAKE) run -e CMD="npm run test"
+	@ $(MAKE) run --rm $(VOLUMES) -e CMD="npm run test"
 	@echo " -- Testing $(NAME): done"
 
 .PHONY: exec
@@ -61,7 +74,7 @@ all: build run
 .PHONY: redis
 ## redis: Start the redis container
 redis:
-	docker run --rm --name $(NAME)-redis --network host redis
+	docker run --rm --name $(NAME)-redis -p 6379:6379 redis
 
 .PHONY: stop-redis
 ## stop-redis: Stop the redis container
