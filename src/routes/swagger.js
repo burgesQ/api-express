@@ -15,7 +15,7 @@ const options = {
     },
     servers: [{ url: 'http://localhost:4242/api/v1' }],
   },
-  apis: ['./routes/credential.js'],
+  apis: ['./src/controller/credential.js'],
 };
 
 const specs = swaggerJSDoc(options);
