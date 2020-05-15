@@ -2,8 +2,8 @@
 
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
-const credential = require('./credential');
 const specs = require('./swagger');
+const { credential } = require('../controller/credential');
 
 function init(router = express.Router()) {
   router.get('/credential', credential.get);

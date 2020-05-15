@@ -3,7 +3,6 @@ const logger = require('morgan');
 const pretty = require('express-prettify');
 const routes = require('./routes');
 const middlewares = require('./routes/middlewares');
-//const redisClient = require('./redis-client');
 const { port } = require('./config');
 
 const app = express();

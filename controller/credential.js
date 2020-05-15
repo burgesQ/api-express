@@ -1,6 +1,8 @@
 // credential.js hold the credential endpoint
 
-const redis = require('../redis-client');
+const { redis } = require('../client/redis');
+
+const controller = {};
 
 /**
  * @swagger
@@ -73,26 +75,22 @@ const redis = require('../redis-client');
  *               id: new_user
  *               value: new_credential
  */
-function getCredential(req, res, next) {
-    // gen cred
-    // save them in redis
-    // fetch data from url query
+controller.get = async (req, res, next) => {
+  // TODO: parse url query data
+  // TODO: gen cred - save them in redis -
 
-  redis.client().get('key', (err, result) => {
-    if (err) {
-      console.error(`redis error:\t${err}`);
-      return next(err);
-    } else {
-      console.log("ret val is " + result);
-      redis.client().set('key', `${result}+`);
-      res.json({
-        credential: result,
-        user: 'turlu',
-      });
-    }
-  });
-}
+  try {
+    const data = await redis.get('key');
+    await redis.set('key', `${data}+`);
 
-module.exports = {
-  get: getCredential
-}
+    return res.json({
+      credential: data,
+      user: 'turlu',
+    });
+  } catch (err) {
+    console.error(`redis error:\t${err}`);
+    return next(err);
+  }
+};
+
+module.exports.credential = controller;
