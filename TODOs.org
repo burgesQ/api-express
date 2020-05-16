@@ -1,6 +1,6 @@
-#+TITLE: turn-express's todos
+#+TITLE: api-express's todos
 #+AUTHOR: Quentin Burgess (quentin.burgess@frafos.com)
-#+DESCRIPTION: Quick summary of dev task for turn-express
+#+DESCRIPTION: Quick summary of dev task for api-express
 #+TODO: IDEA TODO WIP REVIEW | UNASIGNED CANCELED DONE
 
 * v1 [1/8] [12%]

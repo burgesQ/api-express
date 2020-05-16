@@ -5,10 +5,10 @@ const routes = require('./routes');
 const middlewares = require('./routes/middlewares');
 const { nodeEnv, port } = require('./config');
 const { redis } = require('./client/redis');
-const { mockRedis } = require('./client/redis.test');
+const { mockRedis } = require('./client/redis.mock');
 
 const app = express();
-const usedRedis = (nodeEnv === 'test') ? mockRedis : redis;
+const usedRedis = (nodeEnv === 'test') ? mockRedis.init() : redis.init();
 
 // express conf
 app.use(logger('dev'));

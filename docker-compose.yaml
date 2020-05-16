@@ -7,7 +7,7 @@ services:
        context: .
        target: dev
     # image: docker.frafos.net/license-api:latest
-    container_name: turn-express
+    container_name: api-express
     environment:
       PORT: 4242
       # use redis container fqdn

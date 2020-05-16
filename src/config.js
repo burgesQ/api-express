@@ -15,6 +15,4 @@ if (cfg.nodeEnv === 'test') {
   cfg.port = 4243;
 }
 
-console.log(cfg.nodeEnv);
-
 module.exports = cfg;

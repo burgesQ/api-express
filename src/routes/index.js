@@ -3,13 +3,21 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const specs = require('./swagger');
-const { credential } = require('../controller/credential');
+const { data } = require('../controller/data');
 
 module.exports = (redis) => {
-  credential.use(redis);
+
+  data.use(redis);
 
   const router = express.Router();
-  router.get('/credential', credential.get);
+
+  router.get('/data', data.getAll);
+  router.get('/data/:id', data.get);
+  router.delete('/data/:id', data.delete);
+  router.post('/data', data.create);
+  router.post('/data/:id', data.update);
+
+
   router.use('/docs', swaggerUi.serve);
   router.get('/docs.json', (req, res) => {
     res.json(specs);

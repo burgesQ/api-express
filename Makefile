@@ -1,16 +1,20 @@
-NAME	= turn-express
+NAME	= api-express
 
 # docker build target
 BUILD_TARGET	=	dev
 # docker runtime shared volumes
-VOLUMES = -v `pwd`/src:/usr/src/app/src \
-      -v `pwd`/package.json:/usr/src/app/package.json \
-			-v `pwd`/package-lock.json:/usr/src/app/package-lock.json
+VOLUMES = -v `pwd`:/usr/src/app
+
+# VOLUMES = -v `pwd`/src:/usr/src/app/src \
+#       -v `pwd`/package.json:/usr/src/app/package.json \
+# 			-v `pwd`/package-lock.json:/usr/src/app/package-lock.json \
+# 			-v `pwd`/.env:/usr/src/app/.env \
+# 			-v `pwd`/Makefile:/usr/src/app/Makefile
 # docker run/exec command
 CMD	=
 
 .PHONY: $(NAME)
-## turn_express: Default target, run build
+## api-express: Default target, run build
 $(NAME): build
 
 .PHONY: build

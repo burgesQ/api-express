@@ -14,9 +14,9 @@ RUN npm install
 # copy src
 COPY src/* /usr/src/app/src/
 
-ENV PORT=4242
 ENV NODE_ENV=development
-ENV DEBUG=turn-express,redis,express
+ENV PORT=4242
+ENV DEBUG=api-express,redis,express
 
 EXPOSE $PORT
 
@@ -30,7 +30,7 @@ ENV NODE_ENV=production
 ENV PORT=4242
 
 COPY --from=dev /usr/src/app/package*.json .
-RUN npm install && npm ci --only=production
+RUN npm install --production && npm ci --only=production
 
 COPY src/* /usr/src/app/src/
 

@@ -1,8 +1,8 @@
 # README.md
 
-Project `turn-express`. 
+Project `api-express`. 
 
-`turn-express` is a nodejs API (using the `express` fmwk) which handle the credential creation / feeding for a TURN authentification. 
+`api-express` is a nodejs API (using the `express` fmwk) which handle the credential creation / feeding for a TURN authentification. 
 
 The nodejs server is dockerized, so no need to install npm or anything else on the host. 
 
