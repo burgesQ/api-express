@@ -1,20 +1,13 @@
 // credential.js hold the credential endpoint
 
- controller = {},
-      redis = {};
-
+const controller = {};
+let redis = {};
 
 // generate a not found error (404)
 function newNotfound(msg) {
   const err = new Error(msg);
   err.status = 404;
   throw err;
-}
-
-async function asyncForEach(array, callback) {
-  for (let index = 0; index < array.length; index++) {
-    await callback(array[index], index, array);
-  }
 }
 
 // use set the redis client
@@ -106,7 +99,7 @@ controller.use = (client) => {
  *               error: no data for id undef
  */
 controller.get = async (req, res, next) => {
-  const id = req.params.id;
+  const {id} = req.params;
 
   try {
     const data = await redis.hgetall(id);
@@ -115,7 +108,6 @@ controller.get = async (req, res, next) => {
 
     return res.json(data);
   } catch (err) {
-    console.error(`redis error:\t${err}`);
     return next(err);
   }
 };
@@ -150,15 +142,17 @@ controller.get = async (req, res, next) => {
  */
 controller.getAll = async (req, res, next) => {
   try {
-    const ids = await redis.keys('*'),
-          data = {};
+    const ids = await redis.keys('*');
+    const data = {};
 
     // TODO: pipe redis call
-    for (const id of ids) data[id] = await redis.hgetall(id);
+    for (i in ids) {
+      const id = ids[i];
+      data[id] = await redis.hgetall(id);
+    }
 
     return res.json(data);
   } catch (err) {
-    console.error(`redis error:\t${err}`);
     return next(err);
   }
 };
@@ -196,11 +190,10 @@ controller.update = async (req, res, next) => {};
  *               error: no data for id undef
  */
 controller.delete = async (req, res, next) => {
-  const id = req.params.id;
+  const {id} = req.params;
 
   try {
     const fields = await redis.hkeys(id);
-    console.log(fields);
     if (fields.length === 0) newNotfound(`no data for id ${id}`);
 
     for (const field of fields) await redis.hdel(id, field);
@@ -208,7 +201,6 @@ controller.delete = async (req, res, next) => {
     res.status(204);
     res.json(null);
   } catch (err) {
-    console.error(`redis error:\t${err}`);
     return next(err);
   }
 };

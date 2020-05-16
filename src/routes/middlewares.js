@@ -8,9 +8,10 @@ function notFound(req, res, next) {
   next(err);
 }
 
+// eslint-disable-next-line no-unused-vars
 function handleError(err, req, res, next) {
   const val = err.status || 500;
-  let ret = { error: err.message };
+  let ret = {error: err.message};
 
   if (val !== 404) {
     // eslint-disable-next-line no-console
@@ -18,7 +19,7 @@ function handleError(err, req, res, next) {
   }
 
   if (nodeEnv === 'development') {
-    ret = { ret, trace: err.statck };
+    ret = {ret, trace: err.statck};
   }
 
   res.status(val);

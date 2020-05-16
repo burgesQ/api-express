@@ -1,7 +1,7 @@
 // redis-client.js hold the redis connection
 
 const Redis = require('ioredis');
-const { redisAddr, redisPort } = require('../config');
+const {redisAddr, redisPort} = require('../config');
 
 let client = {};
 
@@ -33,5 +33,5 @@ function init() {
 // });
 
 module.exports.redis = {
-  init: init,
+  init,
 };

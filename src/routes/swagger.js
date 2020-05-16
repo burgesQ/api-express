@@ -13,7 +13,7 @@ const options = {
         email: 'quentin.burgess@frafos.com',
       },
     },
-    servers: [{ url: 'http://localhost:4242/api/v1' }],
+    servers: [{url: 'http://localhost:4242/api/v1'}],
   },
   apis: ['./src/controller/data.js'],
 };
