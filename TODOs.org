@@ -3,26 +3,32 @@
 #+DESCRIPTION: Quick summary of dev task for api-express
 #+TODO: IDEA TODO WIP REVIEW | UNASIGNED CANCELED DONE
 
-* v1 [1/8] [12%]
+* v1 [3/7] [42%]
 DEADLINE: <2020-05-15 Fri>
 
-** TODO [#B] prod mode [0%]
- - [ ] make prod
- - [ ] docker prod (unsing node:10-alpine?)
- - [ ] read from env file
-** TODO [#A] TURN auth
- - generate auth (simple user:digesst)
- - persist them
- - return them
-
-** WIP [#B] redis access [0%]
+** DONE [#B] prod mode [100%]
+   CLOSED: [2020-05-16 Sat 16:10]
+ - [X] make prod
+ - [X] docker prod (unsing node:10-alpine?)
+ - [X] read from env file
+** DONE [#B] redis access [100%]
+   CLOSED: [2020-05-16 Sat 16:10]
    - https://github.com/NodeRedis/node-redis
    - https://www.npmjs.com/package/redis-mock
- - [ ] connect to redis
- - [ ] resilent connection
+ - [X] connect to redis
+ - [X] resilent connection
    - node-redis is shit - trying ioredis
- - [ ] async request
-** WIP [#B] testing [3/5]
+ - [X] async request
+** IDEA [#C] redis batching / pipelining
+   It's always a good thing
+** WIP [#A] CRUD [50%]
+   - [X] get one entry
+   - [X] get all entries
+   - [X] remove one entry
+   - [ ] remove all entries ?
+   - [ ] create entry
+   - [ ] update entry
+** WIP [#B] testing [4/5]
 https://medium.com/@asciidev/testing-a-node-express-application-with-mocha-chai-9592d41c0083
 - [X] mocha
 - [X] chai
@@ -31,7 +37,7 @@ https://medium.com/@asciidev/testing-a-node-express-application-with-mocha-chai-
 - [-] [GET] /credential [50%]
   - [X] all ok
   - [ ] cannot contact redis
-- [ ] mocking redis
+- [X] mocking redis
 ** WIP [#A] doc [50%]
  - [ ] complet readme
  - [X] fully featured makefile
@@ -47,3 +53,6 @@ https://blog.cloudboost.io/adding-swagger-to-existing-node-js-project-92a6624b85
    https://github.com/srinivasKandukuri/redisCache_nodejs_express_API
 ** IDEA redis session ?
    How to implement Redis with Node.js and Express for beginners
+** IDEA use class
+   could be cleaner
+   occasion to learn js's classes ;)
