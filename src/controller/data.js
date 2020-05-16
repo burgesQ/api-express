@@ -104,7 +104,6 @@ controller.use = (client) => {
  *               $ref: '#/definitions/Error'
  *             example:
  *               error: no data for id undef
-
  */
 controller.get = async (req, res, next) => {
   const id = req.params.id;
@@ -135,16 +134,6 @@ controller.get = async (req, res, next) => {
  *         in: query
  *         required: false
  *         type: bool
- *       - name: page
- *         description: Return the n'th page
- *         in: query
- *         required: false
- *         type: int
- *       - name: limit
- *         description: Size of a page
- *         in: query
- *         required: false
- *         type: int
  *     responses:
  *       200:
  *         description: datas
@@ -152,12 +141,12 @@ controller.get = async (req, res, next) => {
  *           application/json:
  *             schema:
  *               type: array
+ *               keys: Data.id
  *               items:
  *                 $ref: '#/definitions/Data'
  *             example:
- *               datas:
- *                 - { id: 1, data: val1 }
- *                 - { id: 2, data: val2 }
+ *               test: { id: test, data: val1 }
+ *
  */
 controller.getAll = async (req, res, next) => {
   try {
@@ -176,6 +165,52 @@ controller.getAll = async (req, res, next) => {
 
 controller.create = async (req, res, next) => {};
 controller.update = async (req, res, next) => {};
-controller.delete = async (req, res, next) => {};
+
+/**
+ * @swagger
+ * /api/v1/data/:id:
+ *   delete:
+ *     description: Remove id's data
+ *     tags: [Data]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: pretty
+ *         description: Return a pretty json
+ *         in: query
+ *         required: false
+ *         type: bool
+ *     responses:
+ *       204:
+ *         description: id's data
+ *         content:
+ *           application/json:
+ *             example: {}
+ *       404:
+ *         description: no data found for id
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/definitions/Error'
+ *             example:
+ *               error: no data for id undef
+ */
+controller.delete = async (req, res, next) => {
+  const id = req.params.id;
+
+  try {
+    const fields = await redis.hkeys(id);
+    console.log(fields);
+    if (fields.length === 0) newNotfound(`no data for id ${id}`);
+
+    for (const field of fields) await redis.hdel(id, field);
+
+    res.status(204);
+    res.json(null);
+  } catch (err) {
+    console.error(`redis error:\t${err}`);
+    return next(err);
+  }
+};
 
 module.exports.data = controller;

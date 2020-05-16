@@ -15,7 +15,7 @@ module.exports = (redis) => {
   router.get('/data/:id', data.get);
   router.delete('/data/:id', data.delete);
   router.post('/data', data.create);
-  router.post('/data/:id', data.update);
+  router.patch('/data/:id', data.update);
 
 
   router.use('/docs', swaggerUi.serve);

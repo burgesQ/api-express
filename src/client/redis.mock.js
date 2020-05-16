@@ -14,6 +14,7 @@ function init() {
     data: {},
   });
 
+  // bug hset - won't supprot multiple key:value
   client.hset('test', 'data', 'test_value', (err, res) => {
     if (err) {
       console.error(`hsetting : ${err}`);
