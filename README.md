@@ -1,5 +1,8 @@
 # README.md
 
+[![Build Status](https://github.com/burgesQ/api-express/workflows/TestAndCover/badge.svg)](https://github.com/burgesQ/api-express/actions?query=workflow%3ATestAndCover)
+[![codecov](https://codecov.io/gh/burgesQ/api-express/branch/master/graph/badge.svg)](https://codecov.io/gh/burgesQ/api-express)
+
 `api-express` is a boilerplate which aim to be a learning project. 
 
 The api is written in `nodejs`, using the `express` framework. 
