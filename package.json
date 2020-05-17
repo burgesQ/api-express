@@ -41,7 +41,7 @@
     "start": "node src/app.js",
     "test": "mocha --exit --timeout 1000 src/**/*.test.js",
     "swagger": "swagger-jsdoc -d src/modules/swagger.js src/**/*.js",
-    "coverage": "nyc mocha --exit --timeout 1000 src/**/*.test.js",
-    "codecov": "nyc mocha --exit --timeout 1000 src/**/*.test.js && nyc report --reporter=text-lcov > coverage.lcov && codecov -t $CODECOV_TOKEN"
+    "coverage": "nyc mocha --exit --timeout 1000 src/**/*.test.js && nyc report --reporter=text-lcov > coverage.lcov",
+    "codecov": "codecov -t $CODECOV_TOKEN"
   }
 }

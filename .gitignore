@@ -1,7 +1,12 @@
+# classic nodejs exclude
 node_modules
 npm-debug.log
-.nyc_output
-coverage.lcov
+# emacs tmp files
 .#*
 *~
+# emacs live rendering markdown remaning files
 *.md.temp
+# coverage file
+.nyc_output
+coverage.lcov
+lcov

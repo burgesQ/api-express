@@ -52,12 +52,14 @@ Access 127.0.0.1:4242/api/v1/docs :) or `curl 127.0.0.1:4242/api/v1/docs.json`
 
 #### package.json target
 
-- `lint`
-- `lintfix`
-- `pretty`
-- `start`
-- `test`
-- `swagger`
+- `lint`: run eslint
+- `lintfix`: run eslint + fixer
+- `pretty`: run prettier
+- `start`: start the API
+- `test`: run the test via mocha
+- `swagger`: generate a swagger.json file 
+- `coverage`: generate code coverage
+- `codecov`: generate and publish coverage to codecov
 
 ### make 
 
