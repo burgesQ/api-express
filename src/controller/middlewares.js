@@ -1,6 +1,6 @@
 // middlewares.js hold some useful middlware to force json error
 
-const nodeEnv = require('../config');
+const nodeEnv = require('../modules/config');
 
 function notFound(req, res, next) {
   const err = new Error('Not Found');
@@ -18,7 +18,7 @@ function handleError(err, req, res, next) {
     console.error(err.stack);
   }
 
-  if (nodeEnv === 'development') {
+  if (nodeEnv === 'dev') {
     ret = {ret, trace: err.statck};
   }
 

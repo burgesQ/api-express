@@ -2,19 +2,19 @@ FROM node:10 AS dev
 
 WORKDIR /usr/src/app
 
-RUN npm install -g nodemon
-
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN npm install
+RUN npm install && \
+  cp -rf ./node_modules /usr/local/lib/ && \
+  npm install -g nodemon
 
 # copy src
 COPY src/* /usr/src/app/src/
 
-ENV NODE_ENV=development
+ENV NODE_ENV=dev
 ENV PORT=4242
 ENV DEBUG=api-express,redis,express
 

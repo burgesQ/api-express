@@ -1,37 +1,48 @@
-// redis-client.js hold the redis connection
+// redis.js
 
-const Redis = require('ioredis');
-const {redisAddr, redisPort} = require('../config');
+// TODO: interface transition controller / redis (like an ORM)
+// TODO: pipe action like :
+// - getAll : KEYS, HGETALL
+// - delete : HKEYS, HDELp
 
-let client = {};
+const methods = {};
 
-function init() {
-  client = new Redis({
-    host: redisAddr,
-    port: redisPort,
-    maxRetriesPerRequest: 5,
-  });
-  return client;
+function toInt(payload) {
+  if (payload.some_int !== undefined)
+    payload.some_int = parseInt(payload.some_int, 10);
+
+  return payload;
 }
 
-// async / await
-// client.set('key', 'value', (err, result) => {
-//   if (!err) {
-//     client.get('key', (e, r) => {
-//       if (e) {
-//         console.error(e);
-//       } else {
-//         console.log(r);
-//       }
-//     });
-//   }
-// });
-
-// callback - ioredis returns a promise if the last argument isn't a function
-// client.get('key').then((result) => {
-//   console.log(result); // Prints "bar"
-// });
-
-module.exports.redis = {
-  init,
+methods.getOneData = async (redis, id) => {
+  return toInt(await redis.hgetall(id));
 };
+
+methods.getAllData = async (redis) => {
+  const ids = await redis.keys('*'),
+        data = [];
+
+  // TODO: pipe this.redis call
+  for (const i in ids) {
+    const id = ids[i];
+    data.push(toInt(await redis.hgetall(id)));
+  }
+
+  return data;
+};
+
+methods.remove = async (redis, id, toRemove) => {
+  const fields = await redis.hkeys(id),
+        size = toRemove.length;
+
+  for (const field of fields)
+    if (!size || toRemove.indexOf(field) > -1)
+      await redis.hdel(id, field);
+};
+
+//  getAllData: () => {}
+
+module.exports = methods;
+//  createData: (redis) => {};
+
+//};

@@ -1,24 +1,7 @@
-const express = require('express');
-const logger = require('morgan');
-const pretty = require('express-prettify');
-const routes = require('./routes');
-const middlewares = require('./routes/middlewares');
-const {nodeEnv, port} = require('./config');
-const usedRedis =
-  nodeEnv === 'test'
-    ? require('./client/redis.mock').mockRedis.init()
-    : require('./client/redis').redis.init();
+// app.js hold the main process
 
-const app = express();
-
-// express conf
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-app.use(pretty({query: 'pretty'}));
-app.use('/api/v1', routes(usedRedis));
-app.use(middlewares.notFound());
-app.use(middlewares.handleError());
+const app = require('./modules/express');
+const { port } = require('./modules/config');
 
 // start server
 app.listen(port, () => {

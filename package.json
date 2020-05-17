@@ -1,19 +1,17 @@
 {
   "name": "api-express",
-  "version": "1.0.0",
-  "description": "nodejs server hanlding the TURN auth",
+  "version": "0.0.1",
+  "description": "nodejs express API boilerplate",
   "author": "Quentin Burgess <quentin.burgess@frafos.com>",
   "repository": "https://gitlab.frafos.net/sbc/api-express",
   "license": "WTFPL",
   "main": "./src/app.js",
   "dependencies": {
-    "connect-redis": "^4.0.4",
-    "cookie-parser": "~1.4.5",
+    "@hapi/joi": "^17.1.1",
     "debug": "~4.1.1",
     "dotenv": "^8.2.0",
     "express": "~4.17.1",
     "express-prettify": "^0.1.1",
-    "express-session": "^1.17.1",
     "ioredis": "^4.17.0",
     "ioredis-mock": "^4.19.0",
     "morgan": "~1.10.0",
@@ -32,15 +30,16 @@
     "license-checker": "^25.0.1",
     "mocha": "^7.1.2",
     "npm-check-updates": "^6.0.1",
-    "prettier": "^2.0.5",
-    "proxyquire": "^2.1.3"
+    "nyc": "^15.0.1",
+    "prettier": "^2.0.5"
   },
   "scripts": {
     "lint": "eslint --ignore-path .gitignore .",
     "lintfix": "eslint --fix --ignore-path .gitignore .",
     "pretty": "prettier --single-quote --trailing-comma es5 --print-width 80 --write --no-bracket-spacing src/*.js src/**/*.js",
     "start": "node src/app.js",
-    "test": "mocha --timeout 10000 src/**/*.test.js",
-    "swagger": "swagger-jsdoc -d src/routes/swagger.js src/**/*.js"
+    "test": "mocha --exit --timeout 1000 src/**/*.test.js",
+    "swagger": "swagger-jsdoc -d src/modules/swagger.js src/**/*.js",
+    "coverage": "nyc mocha --exit --timeout 1000 src/**/*.test.js"
   }
 }
