@@ -8,7 +8,7 @@ let client = {};
 function initData() {
   // bug hset - won't supprot variadic key:value
   // https://github.com/luin/ioredis/issues/1039
-  client.hset('test', 'some_string', 'some content');
+  client.hset('test', 'some_string', 'someContent');
   client.hset('test', 'some_int', 1);
   client.hset('test', 'id', 'test');
 };
@@ -16,13 +16,6 @@ function initData() {
 client.initData = initData.bind(client);
 
 function init() {
-  // console.log(client);
-  // if (client !== {}) {
-  //   console.log('exit');
-  //   return client;
-
-  // }
-
   client = new Redis({
     host: redisAddr,
     port: redisPort + 1,

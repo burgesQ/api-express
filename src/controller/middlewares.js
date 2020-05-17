@@ -13,13 +13,12 @@ function handleError(err, req, res, next) {
   const val = err.status || 500;
   let ret = {error: err.message};
 
-  if (val !== 404) {
-    // eslint-disable-next-line no-console
-    console.error(err.stack);
-  }
-
   if (nodeEnv === 'dev') {
     ret = {ret, trace: err.statck};
+    if (val !== 404) {
+      // eslint-disable-next-line no-console
+      console.error(err.stack);
+    }
   }
 
   res.status(val);

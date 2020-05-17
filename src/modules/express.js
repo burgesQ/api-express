@@ -13,8 +13,8 @@ const usedRedis = require('./redis.mock').mockRedis.init();
 
 const app = express();
 
-// express conf
-app.use(logger(nodeEnv));
+if (nodeEnv !== 'test')
+  app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(pretty({query: 'pretty'}));

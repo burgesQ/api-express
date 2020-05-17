@@ -13,8 +13,7 @@ const dataSchema = Joi.object({
     .alphanum()
     .max(30),
 
-  some_int: Joi.number()
-    .integer(),
+  some_int: Joi.number().integer(),
 });
 
 module.exports = dataSchema;

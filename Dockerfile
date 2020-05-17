@@ -30,9 +30,9 @@ ENV NODE_ENV=production
 ENV PORT=4242
 
 COPY --from=dev /usr/src/app/package*.json .
-RUN npm install --production && npm ci --only=production
+COPY --from=dev src/* /usr/src/app/src/
 
-COPY src/* /usr/src/app/src/
+RUN npm install --production && npm ci --only=production
 
 EXPOSE $PORT
 

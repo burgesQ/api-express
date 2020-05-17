@@ -3,7 +3,7 @@
 [![Build Status](https://github.com/burgesQ/api-express/workflows/TestAndCover/badge.svg)](https://github.com/burgesQ/api-express/actions?query=workflow%3ATestAndCover)
 [![codecov](https://codecov.io/gh/burgesQ/api-express/branch/master/graph/badge.svg)](https://codecov.io/gh/burgesQ/api-express)
 
-`api-express` is a boilerplate which aim to be a learning project. 
+`api-express` is a boilerplate which aim to be a learning project (Frafos GmbH FTW :tada:). 
 
 The api is written in `nodejs`, using the `express` framework. 
 A resilent redis connection is hanlded (unsing `ioredis` :wink:). 
@@ -61,6 +61,11 @@ Access 127.0.0.1:4242/api/v1/docs :) or `curl 127.0.0.1:4242/api/v1/docs.json`
 - `coverage`: generate code coverage
 - `codecov`: generate and publish coverage to codecov
 
-### make 
+### makefile
+
+#### target
 
 ### docker
+
+The dockerfile hold 2 steps : `dev` and `prod`. Provide the `--target` arguemnt to `docker build` 
+to stop at the desired target.

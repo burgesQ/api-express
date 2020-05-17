@@ -40,6 +40,10 @@ methods.remove = async (redis, id, toRemove) => {
       await redis.hdel(id, field);
 };
 
+methods.setFields = async(redis, set, key, val) => {
+  await redis.hset(set, key, val);
+}
+
 //  getAllData: () => {}
 
 module.exports = methods;

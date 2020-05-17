@@ -61,11 +61,20 @@ const client = require('../client/redis');
  *       $ref: '#/components/schemas/Error'
  */
 
+function newHTTPError(status, msg) {
+  const err = new Error(msg);
+  err.status = status;
+  throw err;
+}
+
 // generate a not found error (404)
 function newNotfound(msg) {
-  const err = new Error(msg);
-  err.status = 404;
-  throw err;
+  newHTTPError(404, msg);
+}
+
+// generate a not found error (404)
+function newForbidden(msg) {
+  newHTTPError(403, msg);
 }
 
 class Controller {
@@ -226,28 +235,36 @@ class Controller {
    *         content:
    *           application/json:
    *             example: {}
-   *       422:
-   *         description: wrong input
+   *       403:
+   *         description: id already assigned
    *         content:
    *           application/json:
    *             schema:
    *               $ref: '#/definitions/Error'
    *             example:
-   *               error: no data for id undef
+   *               error: id is already assigned
+   *       400:
+   *         description: validation error
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/definitions/Error'
+   *             example:
+   *               error: id is required
    */
   async create(req, res, next) {
    try {
-     const value = await schema.validateAsync(req.body);
 
-     res.json(value);
+     // console.log(req.body);
+     const form = await schema.validateAsync(req.body),
+           id = form.id;
 
-     const id = value.id;
-     for (const key of value) {
+     const data = await client.getOneData(this.redis, id);
 
-     }
+     if (JSON.stringify(data) !== '{}') newForbidden(`id ${id} already assigned`);
+     for (const key in form) client.setFields(this.redis, id, key, form[key]);
 
-     //res.json({message: 'ok'});
-
+     res.status(204).json({});
     } catch (err) {
       err.status = 400;
       next(err);
