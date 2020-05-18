@@ -25,12 +25,13 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
+    - run: npm install && apt install gcov
 
     - name: Test and report cover
       run: |
         npm run coverage
-        npm run report-coverage
+        bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
       env:
+
         CI: true
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
