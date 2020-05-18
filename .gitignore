@@ -8,5 +8,4 @@ npm-debug.log
 *.md.temp
 # coverage file
 .nyc_output
-coverage.lcov
-lcov
+coverage
