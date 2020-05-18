@@ -3,6 +3,8 @@
 [![Build Status](https://github.com/burgesQ/api-express/workflows/TestAndCover/badge.svg)](https://github.com/burgesQ/api-express/actions?query=workflow%3ATestAndCover)
 [![codecov](https://codecov.io/gh/burgesQ/api-express/branch/master/graph/badge.svg)](https://codecov.io/gh/burgesQ/api-express)
 
+## What
+
 `api-express` is a boilerplate which aim to be a learning project (Frafos GmbH FTW :tada:). 
 
 The api is written in `nodejs`, using the `express` framework. 
@@ -16,7 +18,7 @@ shared via a volume with the docker.
 
 The dev target of the docker iamge run the code via `nodemon`, which allow a hot reload of the content.
 
-## use it 
+## Use it 
 
 ### dev 
 
@@ -37,33 +39,29 @@ Access 127.0.0.1:4242/api/v1/docs :) or `curl 127.0.0.1:4242/api/v1/docs.json`
 
 ### nodejs
 
+A JSON API, contacting redis, serving a swagger doc. 
+
 #### external library 
 
-- `express`: api framework
-- `express-pretty`: return pretty json via the `pretty` query param
-- `swagger-ui-exoress`: serve a swagger doc 
-- `swagger-jsdoc`: generate swagger from code
-- `morgan`: handle api logging
-- `ioredis`: redis connection
-- `ioredis-mock`: mocked redis for testing
-- `dotenv`: handle dotfile
-- `moca`: test runner
-- `chai`: http testing
+Use of: [`express`](1), [`express-prettify`](2), [`swagger-ui-exoress`](3), [`swagger-jsdoc`](4), [`morgan`](5), [`ioredis`](6), [`ioredis-mock`](7), [`dotenv`](8), [`mocha`](9), [`chai`](10)
 
-#### package.json target
+[1]: https://github.com/expressjs/express
+[1]: https://github.com/stipsan/express-prettiffy
+#### targets
 
-- `lint`: run eslint
-- `lintfix`: run eslint + fixer
-- `pretty`: run prettier
-- `start`: start the API
-- `test`: run the test via mocha
-- `swagger`: generate a swagger.json file 
-- `coverage`: generate code coverage
-- `codecov`: generate and publish coverage to codecov
+| **target** | **description**                          | **where**      |
+| :-         | :-                                       | -:             |
+| `lint`     | run eslint                               | `package.json` |
+| `lintfix`  | run eslint + fixer                       | `package.json` |
+| `pretty`   | run prettier                             | `package.json` |
+| `start`    | start the API                            | `package.json` |
+| `test`     | run the test via mocha                   | `package.json` |
+| `swagger`  | generate a swagger.json file             | `package.json` |
+| `coverage` | generate code coverage                   | `package.json` |
+| `codecov`  | generate and publish coverage to codecov | `package.json` |
+|            |                                          |                |
+|            |                                          | `Makefile`     |
 
-### makefile
-
-#### target
 
 ### docker
 

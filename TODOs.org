@@ -3,7 +3,7 @@
 #+DESCRIPTION: Quick summary of dev task for api-express
 #+TODO: IDEA TODO WIP REVIEW | UNASIGNED CANCELED DONE
 
-* v1 [3/10] [30%]
+* v1 [4/10] [40%]
 DEADLINE: <2020-05-15 Fri>
 
 ** DONE [#B] prod mode [100%]
@@ -21,27 +21,25 @@ DEADLINE: <2020-05-15 Fri>
  - [X] async request
 ** IDEA [#C] redis batching / pipelining
    It's always a good thing
-** WIP [#A] CRUD [50%]
+** WIP [#A] CRUD [80%]
    - [X] get one entry
    - [X] get all entries
    - [X] remove one entry
-   - [ ] remove all entries ?
-   - [ ] create entry
+   - [X] create entry
    - [ ] update entry
-** WIP [#B] testing [4/5]
+** DONE [#B] testing [5/5]
+   CLOSED: [2020-05-17 Sun 19:43]
 https://medium.com/@asciidev/testing-a-node-express-application-with-mocha-chai-9592d41c0083
 - [X] mocha
 - [X] chai
 - [X] Global [100%]
   - [X] 404 is json
-- [-] [GET] /credential [50%]
+- [X] [GET] /credential [100%]
   - [X] all ok
-  - [ ] cannot contact redis
 - [X] mocking redis
-** WIP [#A] doc [50%]
+** WIP [#A] doc [66%]
  - [ ] complet readme
  - [X] fully featured makefile
- - [ ] postman collection
  - [X] proper swagger doc
 ** DONE [#C] swagger doc
    CLOSED: [2020-05-13 Wed 17:50]
@@ -55,4 +53,4 @@ https://blog.cloudboost.io/adding-swagger-to-existing-node-js-project-92a6624b85
    How to implement Redis with Node.js and Express for beginners
 ** IDEA use class
    could be cleaner
-   occasion to learn js's classes ;)
+   occasion to learn js's classes :wink:

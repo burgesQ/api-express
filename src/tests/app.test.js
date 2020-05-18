@@ -123,146 +123,144 @@ describe('Data endpoint', () => {
             });
         });
     });
+  });
 
+  describe('/POST data', () => {
 
-    describe('/POST data', () => {
-
-      it('shoud create a dataset ', (done) => {
-        chai
-          .request(app)
-          .post('/api/v1/data')
+    it('shoud create a dataset ', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/data')
           .set('Content-Type', 'application/json')
-          .send({
-            id: 'amazing',
-            some_string: 'amazingString',
-            some_int: 42,
-          })
-          .end((err, res) => {
-            should.exist(res.body);
-            res.should.have.status(204);
-            res.body.should.be.a('object');
-            res.body.should.be.eql({});
-            done();
-          });
-      });
-
-      it('should fail creating a dataset with empty payload ', (done) => {
-        chai
-          .request(app)
-          .post('/api/v1/data')
-          .set('Content-Type', 'application/json')
-          .send({})
-          .end((err, res) => {
-            should.exist(res.body);
-            res.should.have.status(400);
-            res.body.should.be.a('object');
-            res.body.should.be.eql(idRequired);
-            done();
-          });
-      });
-      it('should fail creating a dataset with invalid payload ', (done) => {
-        chai
-          .request(app)
-          .post('/api/v1/data')
-          .set('Content-Type', 'application/json')
-          .send('{')
-          .end((err, res) => {
-            should.exist(res.body);
-            res.should.have.status(400);
-            res.body.should.be.a('object');
-            res.body.should.be.eql({error: 'Unexpected end of JSON input'});
-            done();
-          });
-      });
-      it('should fail creating a dataset wrong some_string content (spe char) ', (done) => {
-        chai
-          .request(app)
-          .post('/api/v1/data')
-          .set('Content-Type', 'application/json')
-          .send({
-            id: 'fail',
-            some_string: 'amazingString1*',
-            some_int: 42,
-          })
-          .end((err, res) => {
-            should.exist(res.body);
-            res.should.have.status(400);
-            res.body.should.be.a('object');
-            res.body.should.be.eql(errorSomeString);
-            done();
-          });
-      });
-
-      it('should fail creating a dataset wrong some_string content (space) ', (done) => {
-        chai
-          .request(app)
-          .post('/api/v1/data')
-          .set('Content-Type', 'application/json')
-          .send({
-            id: 'fail',
-            some_string: 'amazing String',
-            some_int: 42,
-          })
-          .end((err, res) => {
-            should.exist(res.body);
-            res.should.have.status(400);
-            res.body.should.be.a('object');
-            res.body.should.be.eql(errorSomeString);
-            done();
-          });
-      });
-      it('should fail creating a dataset wrong some_int content (string) ', (done) => {
-        chai
-          .request(app)
-          .post('/api/v1/data')
-          .set('Content-Type', 'application/json')
-          .send({
-            id: 'fail',
-            some_string: 'amazingString',
-            some_int: '42ee',
-          })
-          .end((err, res) => {
-            should.exist(res.body);
-            res.should.have.status(400);
-            res.body.should.be.a('object');
-            res.body.should.be.eql(errorSomeInt);
-            done();
-          });
-      });
-      it('should fail creating a dataset with already used id', (done) => {
-        chai
-          .request(app)
-          .post('/api/v1/data')
-          .set('Content-Type', 'application/json')
-          .send({
-            id: 'test',
-            some_string: 'amazingString',
-            some_int: 42,
-          })
-          .end((err, res) => {
-            should.exist(res.body);
-            res.should.have.status(400);
-            res.body.should.be.a('object');
-            res.body.should.be.eql({error: 'id test already assigned'});
-            done();
-          });
-      });
-
-      it('should return 2 object', (done) => {
-        chai
-          .request(app)
-          .get('/api/v1/data')
-          .end((err, res) => {
-            should.exist(res.body);
-            res.should.have.status(200);
-            res.body.should.be.a('array');
-            res.body.should.be.eql([testPaylod, createdPayload]);
-            done();
-          });
-      });
-
-
+        .send({
+          id: 'amazing',
+          some_string: 'amazingString',
+          some_int: 42,
+        })
+        .end((err, res) => {
+          should.exist(res.body);
+          res.should.have.status(204);
+          res.body.should.be.a('object');
+          res.body.should.be.eql({});
+          done();
+        });
     });
+
+    it('should fail creating a dataset with empty payload ', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/data')
+        .set('Content-Type', 'application/json')
+        .send({})
+        .end((err, res) => {
+          should.exist(res.body);
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.be.eql(idRequired);
+          done();
+        });
+    });
+    it('should fail creating a dataset with invalid payload ', (done) => {
+        chai
+        .request(app)
+        .post('/api/v1/data')
+        .set('Content-Type', 'application/json')
+        .send('{')
+        .end((err, res) => {
+          should.exist(res.body);
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.be.eql({error: 'Unexpected end of JSON input'});
+          done();
+        });
+    });
+    it('should fail creating a dataset wrong some_string content (spe char) ', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/data')
+        .set('Content-Type', 'application/json')
+        .send({
+          id: 'fail',
+          some_string: 'amazingString1*',
+          some_int: 42,
+        })
+        .end((err, res) => {
+          should.exist(res.body);
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.be.eql(errorSomeString);
+          done();
+        });
+    });
+
+    it('should fail creating a dataset wrong some_string content (space) ', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/data')
+        .set('Content-Type', 'application/json')
+        .send({
+          id: 'fail',
+          some_string: 'amazing String',
+          some_int: 42,
+        })
+        .end((err, res) => {
+          should.exist(res.body);
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.be.eql(errorSomeString);
+          done();
+        });
+    });
+    it('should fail creating a dataset wrong some_int content (string) ', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/data')
+        .set('Content-Type', 'application/json')
+        .send({
+          id: 'fail',
+          some_string: 'amazingString',
+          some_int: '42ee',
+        })
+        .end((err, res) => {
+          should.exist(res.body);
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.be.eql(errorSomeInt);
+          done();
+        });
+    });
+    it('should fail creating a dataset with already used id', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/data')
+        .set('Content-Type', 'application/json')
+        .send({
+          id: 'test',
+          some_string: 'amazingString',
+          some_int: 42,
+        })
+        .end((err, res) => {
+          should.exist(res.body);
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.body.should.be.eql({error: 'id test already assigned'});
+          done();
+          });
+    });
+
+    it('should return 2 object', (done) => {
+        chai
+        .request(app)
+        .get('/api/v1/data')
+        .end((err, res) => {
+          should.exist(res.body);
+          res.should.have.status(200);
+          res.body.should.be.a('array');
+          res.body.should.be.eql([testPaylod, createdPayload]);
+          done();
+        });
+    });
+
 
   });
 });
