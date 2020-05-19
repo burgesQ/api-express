@@ -28,10 +28,10 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.2",
+    "istanbul": "^0.4.5",
     "license-checker": "^25.0.1",
     "mocha": "^7.1.2",
     "npm-check-updates": "^6.0.1",
-    "nyc": "^15.0.1",
     "prettier": "^2.0.5"
   },
   "scripts": {
@@ -41,7 +41,7 @@
     "start": "node src/app.js",
     "test": "mocha --exit --timeout 1000 src/**/*.test.js",
     "swagger": "swagger-jsdoc -d src/modules/swagger.js src/**/*.js",
-    "coverage": "nyc mocha --exit --timeout 1000 src/**/*.test.js",
-    "report-coverage": "nyc report --reporter=lcov && codecov -f ./coverage/lcov.info --disable=search --disable=gcov -t $CODECOV_TOKEN"
+    "coverage": "istanbul cover mocha -- --exit --timeout 1000 src/**/*.test.js",
+    "report-coverage": "codecov --disable=search --disable=gcov -t $CODECOV_TOKEN"
   }
 }
