@@ -229,6 +229,15 @@ class Controller {
    *         in: query
    *         required: false
    *         type: bool
+   *       - name: pass
+   *         description: New pass object
+   *         in: body
+   *         required: true
+   *         type: string
+   *         schema:
+   *           $ref: '#/definitions/ChangePass'
+
+
    *     responses:
    *       204:
    *         description: data created

@@ -15,7 +15,7 @@ const options = {
     },
     servers: [{url: 'http://localhost:4242/api/v1'}],
   },
-  apis: ['./src/controller/data.js'],
+  apis: ['./src/controller/all.js'],
 };
 
 const specs = swaggerJSDoc(options);

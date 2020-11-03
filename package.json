@@ -42,6 +42,6 @@
     "test": "mocha --exit --timeout 1000 src/**/*.test.js",
     "swagger": "swagger-jsdoc -d src/modules/swagger.js src/**/*.js",
     "coverage": "istanbul cover mocha -- --exit --timeout 1000 src/**/*.test.js",
-    "report-coverage": "codecov --disable=search --disable=gcov -t $CODECOV_TOKEN"
+    "report-coverage": "codecov --disable=search -X gcov -t $CODECOV_TOKEN"
   }
 }
